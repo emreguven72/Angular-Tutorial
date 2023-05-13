@@ -1,0 +1,31 @@
+<div class="mb-3">
+  <input
+    class="form-control"
+    id="productName"
+    placeholder="Search..."
+    [(ngModel)]="filterText"
+  />
+  <div *ngIf="filterText" id="emailHelp" class="form-text">
+    You searched {{filterText}}.
+  </div>
+</div>
+
+<h3 *ngIf="products.length > 0; else noProduct">{{ title }}</h3>
+
+<div class="row">
+  <ng-template #noProduct>
+    <div class="alert alert-primary" role="alert">No Result!</div>
+  </ng-template>
+
+  <div *ngFor="let product of products | productFilter:filterText" class="card" style="width: 18rem">
+    <img height="250px" [src]="product.imageURL" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ product.name }}
+        {{ product.price | currency : "USD" : 'symbol' : "1.2-2" }}
+      </h5>
+      <p class="card-text">{{ product.description }}</p>
+      <a (click)="addToCart(product)" href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+</div>
